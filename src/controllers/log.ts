@@ -1,15 +1,17 @@
-import { winstonLogger } from '../logging/logger'
 import { RequestHandler } from 'express'
+import { winstonLogger } from '../logging/logger'
 
 export const postLogs: RequestHandler = (req, res) => {
+  const rawMessage = req.body.message
   let message
   try {
-    message = JSON.stringify(req.body.message)
+    message = JSON.stringify(rawMessage)
   } catch {
     winstonLogger.info('JSON.stringify failed')
-    message = req.body.message.toSring()
+    message = typeof rawMessage === 'string' ? rawMessage : rawMessage.toSring()
   }
   const level = req.body?.level ?? 'debug'
   winstonLogger.log(level, message)
+
   res.send()
 }
