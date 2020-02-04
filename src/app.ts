@@ -2,6 +2,7 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import path from 'path'
 import { Request, Response, NextFunction } from 'express'
+import cors from 'cors'
 import { ApplicationError } from './errors'
 import routes from './routes'
 
@@ -9,6 +10,7 @@ const express = require('express')
 
 const app = express()
 
+app.use(cors())
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
