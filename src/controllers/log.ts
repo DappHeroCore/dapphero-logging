@@ -15,3 +15,5 @@ export const postLogs: RequestHandler = (req, res) => {
 
   res.send()
 }
+
+winstonLogger.log('info', 'postLogs controller loaded', new Date().toString())
