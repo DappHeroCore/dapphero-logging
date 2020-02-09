@@ -3,6 +3,7 @@ import compression from 'compression'
 import path from 'path'
 import { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
+import morgan from 'morgan'
 import { ApplicationError } from './errors'
 import routes from './routes'
 
@@ -10,12 +11,12 @@ const express = require('express')
 
 const app = express()
 
+app.options('*', cors())
 app.use(cors())
+app.use(morgan('short'))
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-app.set('port', process.env.PORT || 3000)
 
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
