@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import * as controllers from './controllers'
-import { winstonLogger } from './logging/logger'
 const router = Router()
 //
-router.get('/', (req, res) => {
+router.get('/health', (req, res) => {
   res.send('OK')
 })
 // Log Routes
