@@ -10,12 +10,14 @@ export const getContracts: RequestHandler = async (req, res) => {
     const { projectId } = req.params
     const newKey = req.path
     const cachedContractsResponse = services.store.get(newKey)
-    console.log("getContracts:RequestHandler -> cachedContractsResponse", cachedContractsResponse)
     if (cachedContractsResponse === undefined) {
-      const responseData = await api.dappHero.getContractsByProjectKey(projectId)
-      console.log("getContracts:RequestHandler -> responseData", responseData)
-      services.store.set(newKey, responseData)
-      res.send(responseData)
+      try {
+        const responseData = await api.dappHero.getContractsByProjectKey(projectId)
+        services.store.set(newKey, responseData)
+        res.send(responseData)
+      } catch (e) {
+        
+      }
     }
     res.send(cachedContractsResponse)
   } catch (err) {

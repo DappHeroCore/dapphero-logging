@@ -1,19 +1,14 @@
 
-
 class Store {
-  store: Map<any,any>;
+  store: Map<any, any>;
 
-  constructor(){
+  constructor() {
     this.store = new Map()
   }
 
-  set = (key, value) => {
-    return this.store.set(key, value)
-  }
+  set = (key, value) => this.store.set(key, value)
 
-  get = (key) => {
-    return this.store.get(key)
-  }
+  get = (key) => this.store.get(key)
 }
 
 export const store = new Store()
