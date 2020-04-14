@@ -11,6 +11,7 @@ router.post('/log', controllers.log.postLogs)
 
 //
 router.get('/projects/:projectId/contracts', controllers.project.getContracts)
+router.post('/projects/:projectId/contracts', controllers.project.updateContracts)
 
 // AWS health endpoint
 router.get('/', (req, res) => {
