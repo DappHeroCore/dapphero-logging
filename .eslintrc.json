@@ -57,7 +57,7 @@
       "keyword-spacing": "warn",
       "linebreak-style": "off",
       "lines-between-class-members": "warn",
-      "max-depth": ["warn", 3], // Due to common use of objects as configuration and templates
+      "max-depth": ["warn", 5], // Due to common use of objects as configuration and templates
       "max-nested-callbacks": ["off", 3],
       "max-params": "off",
       "max-statements": "off",
