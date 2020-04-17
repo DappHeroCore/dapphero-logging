@@ -18,6 +18,7 @@ export const getContracts: RequestHandler = async (req, res) => {
           const value = services.store.get(newKey, { raw: true })
           res.send(value)
         }
+        res.send(cachedContractsResponse)
       } catch (err) {
         console.log(err)
         res.send(err)

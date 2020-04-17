@@ -9,7 +9,7 @@ class Store {
   set = (key, value) => {
     const data = {
       value,
-      _modified: new Date().toDateString()
+      _modified: new Date().toString()
     }
     return this.store.set(key, data)
   }
