@@ -50,25 +50,6 @@ export const getContracts: RequestHandler = async (req, res) => {
 
 export const updateContracts: RequestHandler = async (req, res) => {
   switch (true) {
-  case (req.query.dev === 'true'): {
-    try {
-      const { projectId } = req.params
-      const newKey = req.path
-      const responseData = await api.dappHero.getContractsByProjectKey(projectId, { dev: true })
-      services.store.set(newKey, responseData)
-      res.send({
-        projectId,
-        path: req.path,
-        dev: !!req.query.dev,
-        newKey,
-        responseData,
-      })
-    } catch (err) {
-      console.log(err)
-      res.status(500).send(err)
-    }
-    break
-  }
   default: {
     try {
       const { projectId } = req.params
