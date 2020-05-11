@@ -1,10 +1,13 @@
-FROM node:10
+FROM node:12
+
+COPY .npmrc ./  
 
 # Add package file
 COPY package*.json ./
 
 # Install deps
 RUN npm i
+RUN rm -f .npmrc
 
 # Copy source
 COPY . .
@@ -13,6 +16,6 @@ COPY . .
 RUN npm run build
 
 # Expose port 3000
-EXPOSE 3000
+EXPOSE 5000
 
-CMD npm run start
+CMD ["npm", "run", "start"]
