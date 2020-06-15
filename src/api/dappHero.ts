@@ -11,19 +11,31 @@ export const getContractsByProjectKey = async (projectId): Promise<Record<string
 
   const body = { projectId }
   try {
-    const axiosResponseProd = axios({
+    const axiosPromiseProd = axios({
       method: 'post',
       url: PROD_URL,
       data: body,
     })
-    const axiosResponseDev = axios({
+    const axiosPromiseDev = axios({
       method: 'post',
       url: DEV_URL,
       data: body,
     })
-    const responses = await Promise.all([ axiosResponseProd, axiosResponseDev ])
-    const responseData = responses[0]?.data?.response?.data?.length > 2 ? responses[0]?.data : responses[1]?.data
-    return responseData
+    try {
+      const axiosResponseProd = await axiosPromiseProd
+
+      // data.response.data comes back as string, if the projectId is missing data will be "[]" which has length of two
+      if (axiosResponseProd?.data?.response?.data?.length <= 2) throw new Error('Production database contains no data.  Checking dev URL')
+      return axiosResponseProd?.data?.response?.data
+    } catch (err1) {
+      console.log(err1)
+      try {
+        const axiosResponseDev = await axiosPromiseDev
+        return axiosResponseDev?.data?.response?.data
+      } catch (err2) {
+        throw new Error(err2)
+      }
+    }
   } catch (err) {
     // logger.error('Error in dappHero api, getContractsByProjectKey', err)
     throw new Error(err)
